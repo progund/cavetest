@@ -267,6 +267,114 @@ public class RoomTest {
     assert(r.things().size()==0);
     log(" OK");
   }
+
+  public void checkPutThing() {
+    List<Thing> things = new ArrayList<Thing>();
+    Thing t = new Thing(DUMMY_THING_NAME);
+    Room r = new Room(DUMMY_DESCR,
+                      null,
+                      null,
+                      null,
+                      null,
+                      things);
+    log("Checking method putThing");    
+
+    /*
+     * Make sure that number of Things is 0 in the list
+     */
+    logn(" * size correct before put");    
+    assert(r.things().size()==0);
+    log(" OK");
+    
+    /* Add a thing */
+    r.putThing(t);
+    
+    /*
+     * Make sure that number of Things is 1 in the list
+     */
+    logn(" * size correct after put");    
+    assert(r.things().size()==1);
+    log(" OK");
+    
+    /* Add the same thing again */
+    r.putThing(t);
+    
+    /*
+     * Make sure that number of Things is (still) 1 in the list
+     */
+    logn(" * size correct after putting same Thing");    
+    assert(r.things().size()==1);
+    log(" OK");
+    
+    /* Add another thing */
+    r.putThing(new Thing(DUMMY_THING_NAME+"v2"));
+    
+    /*
+     * Make sure that number of Things is 2 in the list
+     */
+    logn(" * size correct after second put");    
+    assert(r.things().size()==2);
+    log(" OK");
+  }
+
+  public void checkToString() {
+    log("Checking method toString");    
+    List<Thing> things = new ArrayList<Thing>();
+    Thing t = new Thing(DUMMY_THING_NAME);
+
+    logn(" * check that String contains the Room's description");    
+    Room r = new Room(DUMMY_DESCR,
+                      null,
+                      null,
+                      null,
+                      null,
+                      things);
+    assert(r.toString().contains(DUMMY_DESCR));
+    assert(!r.toString().contains(DUMMY_THING_NAME));
+    log(" OK");    
+    
+    logn(" * check that String contains the Room's description and Thing's name");    
+    things.add(t);
+    r = new Room(DUMMY_DESCR,
+                      null,
+                      null,
+                      null,
+                      null,
+                      things);
+    assert(r.toString().contains(DUMMY_DESCR));
+    assert(r.toString().contains(DUMMY_THING_NAME));
+    log(" OK");    
+  }
+
+  public void checkDescription() {
+    log("Checking method description");    
+    List<Thing> things = new ArrayList<Thing>();
+    Thing t = new Thing(DUMMY_THING_NAME);
+
+    logn(" * check that String contains the Room's description");    
+    Room r = new Room(DUMMY_DESCR,
+                      null,
+                      null,
+                      null,
+                      null,
+                      things);
+    assert(r.description().contains(DUMMY_DESCR));
+    assert(!r.description().contains(DUMMY_THING_NAME));
+    log(" OK");    
+    
+    logn(" * check that String contains the Room's description and NOT Thing's name");    
+    things.add(t);
+    r = new Room(DUMMY_DESCR,
+                      null,
+                      null,
+                      null,
+                      null,
+                      things);
+    assert(r.description().contains(DUMMY_DESCR));
+    assert(!r.description().contains(DUMMY_THING_NAME));
+    log(" OK");    
+  }
+
   
   public static void main(String []args) {
     RoomTest rt = new RoomTest();
@@ -275,7 +383,9 @@ public class RoomTest {
     rt.checkGetRoom();
     rt.checkSetConnectingRoom();
     rt.checkRemoveThing();
+    //    rt.checkPutThing();
+    rt.checkToString();
+    rt.checkDescription();
   }
   
 }
-

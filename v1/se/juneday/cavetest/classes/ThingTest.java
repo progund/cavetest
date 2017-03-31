@@ -1,6 +1,7 @@
-package se.juneday.cavetest.thing;
+package se.juneday.cavetest.classes;
 
 import se.itu.game.cave.Thing;
+
 
 import static se.juneday.cavetest.utils.Log.log;
 import static se.juneday.cavetest.utils.Log.logn;

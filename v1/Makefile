@@ -45,3 +45,8 @@ check: $(TEST_CLASSES)
 		echo ; \
 	done
 
+stat:
+	@echo -n "Number of test files: "
+	@find . -name "*.java" | wc -l
+	@echo -n "Number of asserts: "
+	@find . -name "*.java" | xargs grep assert | wc -l
