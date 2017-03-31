@@ -27,7 +27,9 @@ public class RoomTest {
   Room south;
   Room west;
   public RoomTest() {
-
+    /*
+     * Prepare four rooms for later use
+     */
     north = new Room(DUMMY_N_DESCR,
                           null,
                           null,
@@ -69,9 +71,17 @@ public class RoomTest {
     log(" OK");
   }
 
+  /*
+   * Test that the List of things passed to the constructor is
+   * correctly set (and usable)
+   */
   public void checkThings() {
     List<Thing> things = new ArrayList<Thing>();
     log("Checking method things");    
+
+    /*
+     * Start with an empty list
+     */
     logn(" * with null list");    
     Room r = new Room(DUMMY_DESCR,
                       null,
@@ -82,6 +92,9 @@ public class RoomTest {
     assert (r.things()==null);
     log(" OK");
 
+    /*
+     * Use a list with zero Things in it, check size == 0
+     */
     logn(" * with empty list");    
     r = new Room(DUMMY_DESCR,
                       null,
@@ -92,6 +105,10 @@ public class RoomTest {
     assert (r.things().size()==0);
     log(" OK");
 
+    /*
+     * Test that the List of things passed to the constructor is
+     * correctly set (and usable)
+     */
     logn(" * with one Thing");
     things.add(new Thing(DUMMY_THING_NAME));
     r = new Room(DUMMY_DESCR,
@@ -103,6 +120,10 @@ public class RoomTest {
     assert (r.things().size()==1);
     log(" OK");
 
+    /*
+     * Check that we get an exception when trying to modify the list
+     * of Things.
+     */
     logn(" * modifying thing");
     try {
       /* Adding should throw an exception - the list shall be
@@ -122,6 +143,10 @@ public class RoomTest {
     
   public void checkGetRoom() {
     log("Checking method getRoom");    
+
+    /*
+     * Check that we get null as room - if null was set in the constructor call
+     */
     logn(" * with null rooms");    
     Room r = new Room(DUMMY_DESCR,
                       null,
@@ -135,14 +160,17 @@ public class RoomTest {
     assert (r.getRoom(WEST)==null);
     log(" OK");
 
+
+    /*
+     * Make sure that we get valid rooms - as set in the constructor call
+     */
+    logn(" * with valid rooms");    
     r = new Room(DUMMY_DESCR,
                  north,
                  east,
                  south,
                  west,
                  null);
-
-    logn(" * with valid rooms");    
     assert (r.getRoom(NORTH)==north);
     assert (r.getRoom(EAST)==east);
     assert (r.getRoom(SOUTH)==south);
@@ -152,6 +180,10 @@ public class RoomTest {
 
   public void checkSetConnectingRoom() {
     log("Checking method setConnectingRoom:");    
+
+    /*
+     * Make sure that we can set a Room to null
+     */
     logn(" * with null rooms");    
     Room r = new Room(DUMMY_DESCR,
                       null,
@@ -169,6 +201,9 @@ public class RoomTest {
     assert (r.getRoom(WEST)==null);
     log(" OK");
 
+    /*
+     * Make sure that we can set rooms to a valid Room
+     */
     logn(" * with valid rooms");    
     r = new Room(DUMMY_DESCR,
                       null,
@@ -193,6 +228,10 @@ public class RoomTest {
     Thing t = new Thing(DUMMY_THING_NAME);
     things.add(t);
     log("Checking method removeThing");    
+
+    /*
+     * Make sure that we get an exception when removing null (Thing)
+     */
     logn(" * with null thing");    
     Room r = new Room(DUMMY_DESCR,
                       null,
@@ -207,14 +246,23 @@ public class RoomTest {
       log(" OK");
     }
 
+    /*
+     * Make sure that number of Things is 1 in the list
+     */
     logn(" * size correct before removal");    
     assert(r.things().size()==1);
     log(" OK");
 
+    /*
+     * Remove Thing t from things - should not cause an exception.
+     */
     logn(" * remove valid thing");    
     r.removeThing(t);
     log(" OK");
 
+    /*
+     * Make sure that number of Things is 0 in the list
+     */
     logn(" * size correct after removal");    
     assert(r.things().size()==0);
     log(" OK");
