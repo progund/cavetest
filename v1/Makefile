@@ -8,10 +8,11 @@
 CAVE_DIR=../../../cavegame/remake-v1
 
 #
-# THING_FILES - files testing the Thing class
+# TEST_FILES - Java files with test (and main)
 #
-THING_FILES= \
-    se/juneday/cavetest/thing/ThingTest.java
+TEST_FILES= \
+    se/juneday/cavetest/classes/ThingTest.java \
+    se/juneday/cavetest/classes/RoomTest.java
 
 #
 # CLASSPATH
@@ -28,15 +29,19 @@ CLASSPATH= $(CAVE_DIR):.
 #
 # Don't fiddle with the below
 #
-THING_CLASSES=$(THING_FILES:%.java=%.class)
+TEST_CLASSES=$(TEST_FILES:%.java=%.class)
 
-all: thing
+all: check
 
 clean:
 	@echo Cleaning up
 	@-rm -f $(THING_CLASSES)
 
-thing: $(THING_CLASSES)
-	@echo Testing Thing
-	@java -ea -cp $(CLASSPATH) se.juneday.cavetest.thing.ThingTest
+check: $(TEST_CLASSES)
+	@echo
+	@for class in $(TEST_CLASSES) ; do \
+		echo "Executing $$class" ; echo "-------------------" ;\
+		java -ea -cp $(CLASSPATH) `echo $$class | sed 's,\.class,,g'` || exit 1; \
+		echo ; \
+	done
 
